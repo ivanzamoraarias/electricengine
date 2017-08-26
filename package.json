@@ -1,0 +1,15 @@
+{
+  "name": "electronengine",
+  "version": "1.0.0",
+  "description": "game engine using electron and node js",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ivan Zamora Arias",
+  "license": "ISC",
+  "devDependencies": {
+    "electron-prebuilt": "^1.4.13"
+  }
+}
