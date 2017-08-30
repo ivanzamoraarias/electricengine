@@ -1,0 +1,6 @@
+ElectroEngine
+Thanks for download this project.
+In order to run:
+You should have node js installed
+you should use npm install so you can get all the dependencies
+you can use npm start
