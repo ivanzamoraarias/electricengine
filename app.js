@@ -2,6 +2,8 @@
  * Created by root on 8/29/17.
  */
 
+//var playerClass= require('Player');
+
 console.log('Hello To Electric Engine Main Process');
 var express = require('express');
 var app=express();
@@ -16,6 +18,19 @@ serv.listen(2000);
 console.log('Server Started at port 2000');
 
 var socketList={};
+var playerList={};
+
+var Player = function(id){
+    var self={
+        x:250,
+        y:250,
+        id:id,
+        number:""+Math.floor(10*Math.random()),
+
+    }
+    return self;
+}
+
 
 
 //all the sintacxis for socket io , for receive and emit
@@ -24,32 +39,36 @@ io.sockets.on('connection', function (socket) {
     console.log('socket connection');
 
     socket.id= Math.random();
-    socket.x=0;
-    socket.y=0;
     socketList[socket.id]=socket;
 
-    //receive a message type "happy" , with data=the actual messege
-    socket.on('happy',function (data) {
-        console.log('happy messege received'+ data.reason);
+    var player = Player(socket.id);
+    playerList[socket.id]= player;
+
+    socket.on('disconnect',function(){
+        delete socketList[socket.id];
+        delete  playerList[socket.id];
     });
 
-    socket.emit('mes2',{
-        mes:'mes dos'
-    });
+
 });
 
 //game loop
 setInterval(function () {
-
-    for(var i in socketList)// the i will let the index of the object in the list
+    var objectList=[];
+    for(var i in playerList)// the i will let the index of the object in the list
     {
-        var s= socketList[i];
-        s.x++;
-        s.y++;
-
-        s.emit('newPosition',{
-            x:s.x,
-            y:s.y
+        var player= playerList[i];
+        player.x++;
+        player.y++;
+        objectList.push({
+            x:player.x,
+            y:player.y,
+            number:player.number
         });
+
+    }
+    for(var i in socketList){
+        var s= socketList[i];
+        s.emit('newPosition',objectList);
     }
 },1000/25);

@@ -5,27 +5,24 @@
     <title>Hello</title>
     <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
 </head>
-<body>
+
+<canvas id="ctx" width="500" height="500" style="border: solid 1px"></canvas>
 
 Helllo
 <script>
+
+    var ctx= document.getElementById("ctx").getContext("2d");
+    ctx.font='30px Arial';
+    //ctx.color='red';
     var socket =io();
 
-    var socketFunction=function(){
-        socket.emit('happy',{
-            reason:'First socket'
-        });
-    };
-    //emit has a type, and an array or an object to send
-    //socket.emit('happy',{
-        //reason:'First socket'
-    //});
-
-    socket.on('mes2',function (data) {
-        console.log('Message from server '+data.mes);
+    socket.on('newPosition',function (data) {
+        console.log('Update Position ');
+        ctx.clearRect(0,0,500,500);
+        for(var i=0;i<data.length;i++)
+            ctx.fillText(data[i].number,data[i].x,data[i].y);
     });
 </script>
 
-<button onclick="socketFunction()">Socket Test</button>
-</body>
+
 </html>
