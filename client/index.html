@@ -2,9 +2,30 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Hello</title>
+    <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
 </head>
 <body>
 
+Helllo
+<script>
+    var socket =io();
+
+    var socketFunction=function(){
+        socket.emit('happy',{
+            reason:'First socket'
+        });
+    };
+    //emit has a type, and an array or an object to send
+    //socket.emit('happy',{
+        //reason:'First socket'
+    //});
+
+    socket.on('mes2',function (data) {
+        console.log('Message from server '+data.mes);
+    });
+</script>
+
+<button onclick="socketFunction()">Socket Test</button>
 </body>
 </html>
