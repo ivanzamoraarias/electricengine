@@ -27,6 +27,23 @@ var Player = function(id){
         id:id,
         number:""+Math.floor(10*Math.random()),
 
+        pressingRight:false,
+        pressingLeft:false,
+        pressingUp:false,
+        pressingDown:false,
+
+        maxSpeed:10
+    }
+    self.updatePosition=function(){
+        if(self.pressingRight)
+            self.x += self.maxSpeed;
+        if(self.pressingLeft)
+            self.x -= self.maxSpeed;
+        if(self.pressingUp)
+            self.y -= self.maxSpeed;
+        if(self.pressingDown)
+            self.y += self.maxSpeed;
+
     }
     return self;
 }
@@ -48,6 +65,19 @@ io.sockets.on('connection', function (socket) {
         delete socketList[socket.id];
         delete  playerList[socket.id];
     });
+    socket.on('keypress', function (data) {
+        switch (data.input){
+            case 'left':
+                player.pressingLeft=data.state;
+            case 'right':
+                player.pressingLeft=data.state;
+            case 'up':
+                player.pressingLeft=data.state;
+            case 'down':
+                player.pressingLeft=data.state;
+
+        }
+    })
 
 
 });
@@ -58,8 +88,7 @@ setInterval(function () {
     for(var i in playerList)// the i will let the index of the object in the list
     {
         var player= playerList[i];
-        player.x++;
-        player.y++;
+        player.updatePosition();
         objectList.push({
             x:player.x,
             y:player.y,

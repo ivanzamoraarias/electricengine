@@ -22,6 +22,76 @@ Helllo
         for(var i=0;i<data.length;i++)
             ctx.fillText(data[i].number,data[i].x,data[i].y);
     });
+
+    document.onkeydown= function (event) {
+        switch (event.keyCode){
+            //d
+            case 68:{
+                socket.emit('keypress', {
+                    inputId:'right',
+                    state:true
+                });
+            }
+            //s
+            case 83:{
+                socket.emit('keypress', {
+                    inputId:'down',
+                    state:true
+                });
+            }
+            //a
+            case 65:{
+                socket.emit('keypress', {
+                    inputId:'left',
+                    state:true
+                });
+            }
+            //w
+            case 87:{
+                socket.emit('keypress', {
+                    inputId:'up',
+                    state:true
+                });
+            }
+
+        }
+
+    }
+
+    document.onkeyup= function (event) {
+        switch (event.keyCode){
+            //d
+            case 68:{
+                socket.emit('keypress', {
+                    inputId:'right',
+                    state:false
+                });
+            }
+            //s
+            case 83:{
+                socket.emit('keypress', {
+                    inputId:'down',
+                    state:false
+                });
+            }
+            //a
+            case 65:{
+                socket.emit('keypress', {
+                    inputId:'left',
+                    state:false
+                });
+            }
+            //w
+            case 87:{
+                socket.emit('keypress', {
+                    inputId:'up',
+                    state:false
+                });
+            }
+
+        }
+
+    }
 </script>
 
 
