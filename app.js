@@ -20,6 +20,26 @@ console.log('Server Started at port 2000');
 var socketList={};
 var playerList={};
 
+
+var GameObject= function(){
+
+    var self={
+        x:250,
+        y:250,
+        vx:0,
+        vy:0,
+        id:""
+    }
+    self.update=function(){
+        self.updatePosition();
+    }
+    self.updatePosition=function(){
+        self.y+=self.vy;
+        self.x+=self.vx;
+
+    }
+    return self;
+};
 var Player = function(id){
     var self={
         x:250,
@@ -32,7 +52,7 @@ var Player = function(id){
         pressingUp:false,
         pressingDown:false,
 
-        maxSpeed:10
+        maxSpeed:10,
     }
     self.updatePosition=function(){
         if(self.pressingRight)
@@ -65,19 +85,16 @@ io.sockets.on('connection', function (socket) {
         delete socketList[socket.id];
         delete  playerList[socket.id];
     });
-    socket.on('keypress', function (data) {
-        switch (data.input){
-            case 'left':
-                player.pressingLeft=data.state;
-            case 'right':
-                player.pressingLeft=data.state;
-            case 'up':
-                player.pressingLeft=data.state;
-            case 'down':
-                player.pressingLeft=data.state;
-
-        }
-    })
+    socket.on('keyPress', function (data) {
+        if(data.inputId === 'left')
+            player.pressingLeft = data.state;
+        else if(data.inputId === 'right')
+            player.pressingRight = data.state;
+        else if(data.inputId === 'up')
+            player.pressingUp = data.state;
+        else if(data.inputId === 'down')
+            player.pressingDown = data.state;
+    });
 
 
 });
