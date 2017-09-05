@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ab90a11a-a569-4dfd-b4c7-bfa4c6c7619b" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app.js" afterPath="$PROJECT_DIR$/app.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/client/index.html" afterPath="$PROJECT_DIR$/client/index.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -29,10 +27,15 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+            <state relative-caret-position="527">
+              <caret line="118" column="8" lean-forward="false" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="8" />
               <folding>
                 <element signature="e#256#309#0" expanded="false" />
+                <element signature="e#503#775#0" expanded="false" />
+                <element signature="e#818#1651#0" expanded="false" />
+                <element signature="e#1737#2169#0" expanded="false" />
+                <element signature="e#2207#2246#0" expanded="false" />
+                <element signature="e#2271#2596#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -81,6 +84,11 @@
         <option value="JavaScript File" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>keyPress</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -253,12 +261,12 @@
       <workItem from="1504050095891" duration="3234000" />
       <workItem from="1504114514243" duration="5122000" />
       <workItem from="1504194696539" duration="11176000" />
-      <workItem from="1504626293845" duration="4830000" />
+      <workItem from="1504626293845" duration="12277000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="31010000" />
+    <option name="totallyTimeSpent" value="38457000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="27" width="1280" height="773" extended-state="6" />
@@ -272,7 +280,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20440252" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28301886" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -291,7 +299,9 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <option name="time" value="3" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
@@ -337,6 +347,11 @@
           <caret line="75" column="22" lean-forward="false" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
           <folding>
             <element signature="e#256#309#0" expanded="false" />
+            <element signature="e#503#775#0" expanded="false" />
+            <element signature="e#818#1651#0" expanded="false" />
+            <element signature="e#1737#2169#0" expanded="false" />
+            <element signature="e#2207#2246#0" expanded="false" />
+            <element signature="e#2271#2596#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -365,6 +380,11 @@
           <caret line="51" column="17" lean-forward="false" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
           <folding>
             <element signature="e#256#309#0" expanded="false" />
+            <element signature="e#503#775#0" expanded="false" />
+            <element signature="e#818#1651#0" expanded="false" />
+            <element signature="e#1737#2169#0" expanded="false" />
+            <element signature="e#2207#2246#0" expanded="false" />
+            <element signature="e#2271#2596#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -415,6 +435,11 @@
           <caret line="8" column="6" lean-forward="false" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="6" />
           <folding>
             <element signature="e#256#309#0" expanded="false" />
+            <element signature="e#503#775#0" expanded="false" />
+            <element signature="e#818#1651#0" expanded="false" />
+            <element signature="e#1737#2169#0" expanded="false" />
+            <element signature="e#2207#2246#0" expanded="false" />
+            <element signature="e#2271#2596#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -546,10 +571,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+        <state relative-caret-position="527">
+          <caret line="118" column="8" lean-forward="false" selection-start-line="118" selection-start-column="8" selection-end-line="118" selection-end-column="8" />
           <folding>
             <element signature="e#256#309#0" expanded="false" />
+            <element signature="e#503#775#0" expanded="false" />
+            <element signature="e#818#1651#0" expanded="false" />
+            <element signature="e#1737#2169#0" expanded="false" />
+            <element signature="e#2207#2246#0" expanded="false" />
+            <element signature="e#2271#2596#0" expanded="false" />
           </folding>
         </state>
       </provider>
