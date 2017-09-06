@@ -117,9 +117,38 @@ var Bullet= function(angle){
     var self=GameObject();
     self.id=Math.random();
     self.maxSpeed=10;
-    self.vx=Math.cos(angle/180*Math.PI)*10;//10 es igual a self.maxspeed
-    self.vy=Math.sin(angle/180*Math.PI)*10;
+    self.vx=Math.cos(angle/180*Math.PI)*self.maxSpeed;//10 es igual a self.maxspeed
+    self.vy=Math.sin(angle/180*Math.PI)*self.maxSpeed;
 
+    self.timer=0;
+    self.toRemove=false;
+    var parentUpdate= self.update;
+    self.update=function(){
+        if(self.timer++ > 100 )
+            self.toRemove=true;
+        parentUpdate();
+    }
+    Bullet.List[self.id]=self;
+    return self;
+}
+Bullet.List={};
+
+Bullet.update=function(){
+
+    if(Math.random()<0.1)
+        Bullet(Math.random()*360);
+    var objectList=[];
+    for(var i in Bullet.List)// the i will let the index of the object in the list
+    {
+        var bullet= Bullet.List[i];
+        bullet.update();
+        objectList.push({
+            x:bullet.x,
+            y:bullet.y
+        });
+
+    }
+    return objectList;
 }
 
 //all the sintacxis for socket io , for receive and emit
@@ -139,7 +168,12 @@ io.sockets.on('connection', function (socket) {
 
 //game loop
 setInterval(function () {
-    var objectList=Player.update();
+    var objectList={
+      players: Player.update(),
+      bullets: Bullet.update()
+    }
+
+    //var objectList=Player.update();
     for(var i in socketList){
         var s= socketList[i];
         s.emit('newPosition',objectList);
