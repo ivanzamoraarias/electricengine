@@ -4,18 +4,32 @@
     <meta charset="UTF-8">
     <title>Hello</title>
     <script src="http://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
-<canvas id="ctx" width="500" height="500" style="border: solid 1px"></canvas>
+<canvas id="ctx" width="500" height="500"></canvas>
 
-Helllo
+<div id="chat-text">
+    <div>Helllo</div>
+</div>
+<form id="chat-form">
+    <input id="chat-input" type="text">
+</form>
+
+
 <script>
+
+    var divChatText= document.getElementById("chat-text");
+    var divChatInput= document.getElementById("chat-input");
+    var chatForm=document.getElementById("chat-form");
+
 
     var ctx= document.getElementById("ctx").getContext("2d");
     ctx.font='30px Arial';
     //ctx.color='red';
     var socket =io();
 
+    //updte character positions
     socket.on('newPosition',function (data) {
         console.log('Update Position ');
 
@@ -28,6 +42,24 @@ Helllo
         for(var i=0;i<data.bullets.length;i++)
             ctx.fillRect(data.bullets[i].x-5,data.bullets[i].y-5,10,10);
     });
+
+    //update chat
+    socket.on("addToChat",function(data){
+        divChatText.innerHTML += '<div>'+data+'</div>'
+    });
+    socket.on("sendEvalAnswer",function(data){
+        console.log(data);
+    });
+    //submit text to server
+    chatForm.onsubmit=function (e) {
+        e.preventDefault();
+
+        if(divChatInput.value[0]=='/')
+            socket.emit('sendEvalMessage', divChatInput.value.slice(1));
+        else
+            socket.emit('sendMessageToChatServer', divChatInput.value);
+        divChatInput.value='';
+    }
 
     document.onkeydown= function (event) {
         if(event.keyCode === 68)    //d

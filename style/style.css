@@ -1,0 +1,17 @@
+body{
+    background-color: red;
+}
+#ctx{
+    border: solid 1px;
+    background-color: white;
+}
+#chat-text{
+    width: 100px;
+    height: 100px;
+    overflow-y: scroll;
+    background-color: white;
+}
+#chat-input{
+    width: 500px;
+    background-color: white;
+}

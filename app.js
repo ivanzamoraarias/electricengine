@@ -1,7 +1,7 @@
 /**
  * Created by root on 8/29/17.
  */
-
+var DEBUG= true;
 //var playerClass= require('Player');
 
 console.log('Hello To Electric Engine Main Process');
@@ -10,6 +10,9 @@ var app=express();
 var serv=require('http').Server(app);
 app.get('/',function (req, res) {
     res.sendFile(__dirname+'/client/index.html');
+});
+app.get('/style.css', function(req, res) {
+    res.sendFile(__dirname + "/style/style.css");
 });
 
 app.use('/client',express.static(__dirname + 'client'));
@@ -163,6 +166,22 @@ io.sockets.on('connection', function (socket) {
     socket.on('disconnect',function(){
         delete socketList[socket.id];
         Player.onDisconnect(socket);
+    });
+    
+    socket.on('sendMessageToChatServer', function (message) {
+        var playerName= (''+socket.id).slice(2,7);
+        for(var i in socketList)
+        {
+            socketList[i].emit('addToChat', playerName+': '+message);
+        }
+
+    });
+    socket.on("sendEvalMessage", function (message) {
+        if(!DEBUG)
+            return;
+        var responce= eval(message);
+        socket.emit('sendEvalAnswer',responce);
+
     });
 });
 
