@@ -14,7 +14,9 @@ app.get('/',function (req, res) {
 app.get('/style.css', function(req, res) {
     res.sendFile(__dirname + "/style/style.css");
 });
-
+app.get('/js/clientScript.js',function(req,res){
+    res.sendFile(path.join(__dirname + '/clientScript.js'));
+});
 app.use('/client',express.static(__dirname + 'client'));
 
 serv.listen(2000);
@@ -53,12 +55,26 @@ var Player = function(id){
     self.pressingLeft=false;
     self.pressingUp=false;
     self.pressingDown=false;
+    self.pressAttack=false;
+    self.mouseAngle=0;
     self.maxSpeed=10;
 
     var parentUpdate= self.update;
     self.update=function(){
         self.updateVelocity();
         parentUpdate();
+
+        var a=Math.random();
+        if(a<0.1)
+        {
+           self.shootBullet(a*360);
+        }
+    }
+    //shoot bullet
+    self.shootBullet= function (angle) {
+        var b=Bullet(angle);
+        b.x=self.x;
+        b.y=self.y;
     }
 
     self.updateVelocity=function(){
@@ -138,8 +154,6 @@ Bullet.List={};
 
 Bullet.update=function(){
 
-    if(Math.random()<0.1)
-        Bullet(Math.random()*360);
     var objectList=[];
     for(var i in Bullet.List)// the i will let the index of the object in the list
     {
