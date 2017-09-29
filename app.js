@@ -1,10 +1,10 @@
 /**
- * Created by root on 8/29/17.
+ * Created by Ivan Zamora Arias on 8/29/17.
  */
 var DEBUG= true;
 //var playerClass= require('Player');
 
-console.log('Hello To Electric Engine Main Process');
+console.log('Welcome To Electric Engine Main Process');
 var express = require('express');
 var app=express();
 var serv=require('http').Server(app);
@@ -14,8 +14,9 @@ app.get('/',function (req, res) {
 app.get('/style.css', function(req, res) {
     res.sendFile(__dirname + "/style/style.css");
 });
-app.get('/js/clientScript.js',function(req,res){
-    res.sendFile(path.join(__dirname + '/clientScript.js'));
+app.get('/clientScript.js',function(req,res){
+    res.sendFile(__dirname + '/client/js/clientScript.js');
+
 });
 app.use('/client',express.static(__dirname + 'client'));
 
@@ -33,7 +34,8 @@ var GameObject= function(){
         y:250,
         vx:0,
         vy:0,
-        id:""
+        id:"",
+        radious:10
     }
     self.update=function(){
         self.updatePosition();
@@ -42,6 +44,12 @@ var GameObject= function(){
         self.y+=self.vy;
         self.x+=self.vx;
 
+    }
+    self.getDistanceToObject=function(object){
+        var dx=self.x-object.x;
+        var dy=self.y-object.x;
+        var distance = Math.sqrt(dx*dx+dy*dy);
+        return distance;
     }
     return self;
 };
@@ -58,21 +66,21 @@ var Player = function(id){
     self.pressAttack=false;
     self.mouseAngle=0;
     self.maxSpeed=10;
+    self.radious=10;
 
     var parentUpdate= self.update;
     self.update=function(){
         self.updateVelocity();
         parentUpdate();
 
-        var a=Math.random();
-        if(a<0.1)
+        if(self.pressAttack)
         {
-           self.shootBullet(a*360);
+           self.shootBullet(self.mouseAngle);
         }
     }
     //shoot bullet
     self.shootBullet= function (angle) {
-        var b=Bullet(angle);
+        var b=Bullet(self,angle);
         b.x=self.x;
         b.y=self.y;
     }
@@ -109,6 +117,10 @@ Player.onConnect=function(socket){
             player.pressingUp = data.state;
         else if(data.inputId === 'down')
             player.pressingDown = data.state;
+        else if(data.inputId=='click')
+            player.pressAttack=data.state;
+        else if(data.inputId=='mousemove')
+            player.mouseAngle=data.angle;
     });
 }
 
@@ -132,7 +144,7 @@ Player.update=function(){
 }
 
 //Bullet Class
-var Bullet= function(angle){
+var Bullet= function(parent, angle){
     var self=GameObject();
     self.id=Math.random();
     self.maxSpeed=10;
@@ -141,11 +153,33 @@ var Bullet= function(angle){
 
     self.timer=0;
     self.toRemove=false;
+    self.parentObject = parent;
+    self.radious=5;
+    var getObjectOncollisionDetection= function () {
+        for(var i in Player.List) {
+            var other = Player.List[i];
+            if (other.id != self.id) {
+                if (self.getDistanceToObject(other) < (self.radious + other.radious)) {
+                    console.log('Colision con ' + other.id);
+                    return other;
+                }
+            }
+
+        }
+        return null;
+    }
+    var bulletEventHandler= function () {
+        var objectCollided=getObjectOncollisionDetection();
+        if (objectCollided != null)
+            self.toRemove=true;
+    }
     var parentUpdate= self.update;
     self.update=function(){
         if(self.timer++ > 100 )
             self.toRemove=true;
         parentUpdate();
+        bulletEventHandler();
+
     }
     Bullet.List[self.id]=self;
     return self;
@@ -159,11 +193,14 @@ Bullet.update=function(){
     {
         var bullet= Bullet.List[i];
         bullet.update();
-        objectList.push({
-            x:bullet.x,
-            y:bullet.y
-        });
-
+        if(bullet.toRemove)
+            delete Bullet.List[i];
+        else {
+            objectList.push({
+                x: bullet.x,
+                y: bullet.y
+            });
+        }
     }
     return objectList;
 }

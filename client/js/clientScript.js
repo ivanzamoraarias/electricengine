@@ -1,11 +1,11 @@
 /**
- * Created by root on 9/21/17.
+ * Created by Ivan Zamora Arias on 9/21/17.
  */
 var divChatText= document.getElementById("chat-text");
 var divChatInput= document.getElementById("chat-input");
 var chatForm=document.getElementById("chat-form");
 
-
+var canvas=document.getElementById("ctx");
 var ctx= document.getElementById("ctx").getContext("2d");
 ctx.font='30px Arial';
 //ctx.color='red';
@@ -17,9 +17,12 @@ socket.on('newPosition',function (data) {
 
     //draw players
     ctx.clearRect(0,0,500,500);
-    for(var i=0;i<data.players.length;i++)
-        ctx.fillText(data.players[i].number,data.players[i].x,data.players[i].y);
-
+    for(var i=0;i<data.players.length;i++) {
+        ctx.fillText(data.players[i].number, data.players[i].x, data.players[i].y);
+        ctx.fillRect(data.players[i].x-5,
+            data.players[i].y-5,
+            10,10)
+    }
     //draw bullet
     for(var i=0;i<data.bullets.length;i++)
         ctx.fillRect(data.bullets[i].x-5,data.bullets[i].y-5,10,10);
@@ -66,3 +69,33 @@ document.onkeyup= function (event) {
         socket.emit('keyPress',{inputId:'up',state:false});
 
 }
+
+document.onmousedown= function (event) {
+    socket.emit('keyPress',{inputId:'click',state:true});
+}
+document.onmouseup= function (event) {
+    socket.emit('keyPress',{inputId:'click',state:false});
+}
+
+document.onmousemove= function (event) {
+
+    var x = -canvas.width/2 + event.clientX ;
+    var y = -canvas.height/2 + event.clientY ;
+    var angle = Math.atan2(y,x) / Math.PI * 180;
+    socket.emit('keyPress',{inputId:'mousemove',angle:angle});
+}
+function getMousePos(canvas, evt) {
+    var rect = canvas.getBoundingClientRect();
+    return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+    };
+}
+canvas.addEventListener('mousemove', function(evt) {
+    var mousePos = getMousePos(canvas, evt);
+    var angle= Math.atan2(mousePos.y,-mousePos.x)*180/Math.PI;
+    var message = 'Canvas mousemove: ' +'angle: '+angle+' :'+ mousePos.x + ',' + mousePos.y;
+
+    console.log(message);
+    //socket.emit('keyPress',{inputId:'mousemove',angle:angle});
+}, false);
