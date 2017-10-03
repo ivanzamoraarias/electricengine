@@ -1,6 +1,7 @@
 /**
  * Created by Ivan Zamora Arias on 9/21/17.
  */
+var DEBUG=true;
 var divChatText= document.getElementById("chat-text");
 var divChatInput= document.getElementById("chat-input");
 var chatForm=document.getElementById("chat-form");
@@ -19,9 +20,9 @@ socket.on('newPosition',function (data) {
     ctx.clearRect(0,0,500,500);
     for(var i=0;i<data.players.length;i++) {
         ctx.fillText(data.players[i].number, data.players[i].x, data.players[i].y);
-        ctx.fillRect(data.players[i].x-5,
-            data.players[i].y-5,
-            10,10)
+        ctx.fillRect(data.players[i].x-10,
+            data.players[i].y-10,
+            20,20)
     }
     //draw bullet
     for(var i=0;i<data.bullets.length;i++)
@@ -99,3 +100,8 @@ canvas.addEventListener('mousemove', function(evt) {
     console.log(message);
     //socket.emit('keyPress',{inputId:'mousemove',angle:angle});
 }, false);
+
+// setInterval(function () {
+//     socket.emit('keyPress',{inputId:'mousemove',angle:0});
+//     socket.emit('keyPress',{inputId:'click',state:true});
+// },100/6);

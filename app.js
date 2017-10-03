@@ -35,7 +35,7 @@ var GameObject= function(){
         vx:0,
         vy:0,
         id:"",
-        radious:10
+        radious:10,
     }
     self.update=function(){
         self.updatePosition();
@@ -47,7 +47,7 @@ var GameObject= function(){
     }
     self.getDistanceToObject=function(object){
         var dx=self.x-object.x;
-        var dy=self.y-object.x;
+        var dy=self.y-object.y;
         var distance = Math.sqrt(dx*dx+dy*dy);
         return distance;
     }
@@ -155,12 +155,16 @@ var Bullet= function(parent, angle){
     self.toRemove=false;
     self.parentObject = parent;
     self.radious=5;
-    var getObjectOncollisionDetection= function () {
+    var parentUpdate= self.update;
+    self.getObjectOnCollisionDetection= function () {
         for(var i in Player.List) {
             var other = Player.List[i];
-            if (other.id != self.id) {
+            if (other.id != parent.id) {
+                var dis=self.getDistanceToObject(other);
+                var radif=self.radious + other.radious;
+                //console.log('---- dis '+dis+' dif rad'+radif+'  xO '+other.x+'  yO'+other.y+' x '+self.x+' y '+self.y);
                 if (self.getDistanceToObject(other) < (self.radious + other.radious)) {
-                    console.log('Colision con ' + other.id);
+                    //console.log('Colision con ' + other.id );
                     return other;
                 }
             }
@@ -168,23 +172,29 @@ var Bullet= function(parent, angle){
         }
         return null;
     }
-    var bulletEventHandler= function () {
-        var objectCollided=getObjectOncollisionDetection();
+    self.bulletEventHandler= function () {
+        var objectCollided=self.getObjectOnCollisionDetection();
         if (objectCollided != null)
             self.toRemove=true;
     }
-    var parentUpdate= self.update;
+
     self.update=function(){
         if(self.timer++ > 100 )
             self.toRemove=true;
         parentUpdate();
-        bulletEventHandler();
+        self.bulletEventHandler();
 
     }
     Bullet.List[self.id]=self;
     return self;
 }
 Bullet.List={};
+Bullet.getListSize= function () {
+    var n=0;
+    for(var i in this.List)
+        n++;
+    return n;
+}
 
 Bullet.update=function(){
 
@@ -193,8 +203,9 @@ Bullet.update=function(){
     {
         var bullet= Bullet.List[i];
         bullet.update();
-        if(bullet.toRemove)
+        if(bullet.toRemove) {
             delete Bullet.List[i];
+        }
         else {
             objectList.push({
                 x: bullet.x,

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<canvas id="ctx" width="1000" height="500" style="border: solid; "></canvas>
+<script>
+
+
+
+
+    var imageObject= function (x,y,dx,dy) {
+        this.x=x;
+        this.y=y;
+        this.dy=dy;
+        this.dx=dx;
+    }
+    var movementImage= function (ListImages) {
+        var self={
+            listOfImages:ListImages
+        };
+        var i=0;
+        self.getLenghtOfListImages=function () {
+            var n=0;
+            for(var j in self.listOfImages)
+                n++;
+            return n;
+        }
+        self.getImage=function () {
+            var imagen;
+            if(i<self.getLenghtOfListImages()) {
+                imagen=ListImages[i];
+                i++;
+            }
+            else {
+                i = 0;
+                imagen=ListImages[i];
+                i++;
+            }
+            return imagen;
+
+        }
+        self.drawImage=function () {
+
+        }
+        return self;
+    }
+    function ImageCoordinate(x,y,w,h){
+        this.x=x;
+        this.y=y;
+        this.dw=w;
+        this.dh=h;
+    }
+
+    var Player=function()
+    {
+        this.width=17;
+        this.heigh=43;
+        this.rw=17/2;
+        this.rh=43/2;
+        this.x=250;
+        this.y=250;
+        this.moveDown=false;
+        this.moveUp=false;
+        this.moveLeft=false;
+        this.moveRight=false;
+        this.listMovementObjects=new Array();
+        this.currentImage;
+    }
+    Player.moveDownIndex=0;
+    Player.moveUpIndex=1;
+    Player.moveLeftIndex=2;
+    Player.moveRightIndex=3;
+    //Player.currentImage;
+    Player.prototype.resetMovement=function () {
+        this.moveDown=false;
+        this.moveUp=false;
+        this.moveLeft=false;
+        this.moveRight=false;
+
+    }
+    Player.prototype.update=function (ctx, img) {
+        if(this.moveDown)
+        {
+            var tempA=this.listMovementObjects[Player.moveDownIndex].getImage();
+            this.currentImage=tempA;
+            ctx.drawImage(img, tempA.x, tempA.y,tempA.dw,tempA.dh, this.x-this.rw,this.y-this.rh,17,43);
+        }
+        else
+            ctx.drawImage(img, 65, 65,17,43, this.x-this.rw,this.y-this.rh,17,43);
+
+        this.resetMovement()
+        //Player.resetMovement();
+    }
+
+    var player= new Player();
+    var downMovement=[];
+    var upMovement=[];
+    var lefthMovement=[];
+    var rightMovement=[];
+    for(var i=0;i<9;i++)
+    {
+        downMovement[i]=new ImageCoordinate(65+i*(17+6),65,17,43);
+    }
+    //var listMovementObjects=new Array();
+    player.listMovementObjects.push(new movementImage(downMovement));
+
+    var gameImages={};
+    gameImages.Player= new Image();
+    gameImages.Player.onload= function () {
+
+        ctx.drawImage(gameImages.Player, 65, 65,17,43, player.x-player.rw,player.x-player.rh,17,43);
+    }
+    gameImages.Player.src='client/img/hpcharacter.png';
+    var canvas = document.getElementById("ctx");
+    var ctx = canvas.getContext("2d");
+
+
+    setInterval(function () {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.beginPath();
+        ctx.fillRect(20,20,10,10);
+        ctx.arc(player.x,player.y,player.rw,0,Math.PI*2,true);
+        ctx.stroke();
+        ctx.rect(player.x-player.rw,player.y-player.rh,player.width,player.heigh);
+        ctx.stroke();
+
+        player.update(ctx,gameImages.Player);
+        //ctx.drawImage(gameImages.Player, 65, 65,17,43, player.x-player.rw,player.y-player.rh,17,43);
+    },100/6);
+
+    //var image = document.getElementById('source');
+
+    //void ctx.drawImage(image, sx, sy, sWidth, sHeight, dx, dy, dWidth, dHeight);
+
+
+
+    document.onkeydown= function (event) {
+        //console.log(event.keyCode);
+        switch (event.keyCode)
+        {
+            case 38:{
+                console.log('Arriba!!');
+                player.y--;
+                break;
+            }
+            case 40:{
+                console.log('Abajo !!');
+                player.y++;
+                player.moveDown=true;
+                break;
+            }
+            case 39:{
+                console.log('Derecha !!');
+                player.x++;
+                break;
+            }
+            case 37:{
+                console.log('Izquierda !!');
+                player.x--;
+                break;
+            }
+        }
+    }
+
+</script>
+
+
+</html>
