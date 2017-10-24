@@ -67,7 +67,7 @@
         this.moveLeft=false;
         this.moveRight=false;
         this.listMovementObjects=new Array();
-        this.currentImage;
+        this.currentImage=new ImageCoordinate(65+(17+6),65,17,43);
     }
     Player.moveDownIndex=0;
     Player.moveUpIndex=1;
@@ -88,9 +88,11 @@
             this.currentImage=tempA;
             ctx.drawImage(img, tempA.x, tempA.y,tempA.dw,tempA.dh, this.x-this.rw,this.y-this.rh,17,43);
         }
-        else
-            ctx.drawImage(img, 65, 65,17,43, this.x-this.rw,this.y-this.rh,17,43);
-
+        else {
+            //var tempA=this.listMovementObjects[0].getImage();
+            //this.currentImage=tempA;
+            ctx.drawImage(img, this.currentImage.x, this.currentImage.y, this.currentImage.dw, this.currentImage.dh, this.x - this.rw, this.y - this.rh, 17, 43);
+        }
         this.resetMovement()
         //Player.resetMovement();
     }
@@ -100,10 +102,22 @@
     var upMovement=[];
     var lefthMovement=[];
     var rightMovement=[];
-    for(var i=0;i<9;i++)
-    {
-        downMovement[i]=new ImageCoordinate(65+i*(17+6),65,17,43);
-    }
+//    for(var i=0;i<9;i++)
+//    {
+//        downMovement[i]=new ImageCoordinate(65+i*(17+6),65,17,43);
+//    }
+    downMovement[0]=new ImageCoordinate(65,65,17,43);
+    downMovement[1]=new ImageCoordinate(88,65,17,43);
+    downMovement[2]=new ImageCoordinate(110,65,17,43);
+    downMovement[3]=new ImageCoordinate(131,65,17,43);
+    downMovement[4]=new ImageCoordinate(151,65,17,43);
+    downMovement[5]=new ImageCoordinate(173,65,17,43);
+    downMovement[6]=new ImageCoordinate(196,65,17,43);
+    downMovement[7]=new ImageCoordinate(216,65,17,43);
+    downMovement[8]=new ImageCoordinate(237,65,17,43);
+
+    //downMovement[2]=new ImageCoordinate(110,65,17,43);
+    //downMovement[3]=new ImageCoordinate(131,65,17,43);
     //var listMovementObjects=new Array();
     player.listMovementObjects.push(new movementImage(downMovement));
 
