@@ -74,6 +74,9 @@
     Player.moveLeftIndex=2;
     Player.moveRightIndex=3;
     //Player.currentImage;
+    Player.prototype.pushImageMovement=function (movementIndex, imageCoordinate) {
+        this.listMovementObjects[movementIndex]=imageCoordinate;
+    }
     Player.prototype.resetMovement=function () {
         this.moveDown=false;
         this.moveUp=false;
@@ -85,6 +88,24 @@
         if(this.moveDown)
         {
             var tempA=this.listMovementObjects[Player.moveDownIndex].getImage();
+            this.currentImage=tempA;
+            ctx.drawImage(img, tempA.x, tempA.y,tempA.dw,tempA.dh, this.x-this.rw,this.y-this.rh,17,43);
+        }
+        if(this.moveUp)
+        {
+            var tempA=this.listMovementObjects[Player.moveUpIndex].getImage();
+            this.currentImage=tempA;
+            ctx.drawImage(img, tempA.x, tempA.y,tempA.dw,tempA.dh, this.x-this.rw,this.y-this.rh,17,43);
+        }
+        if(this.moveRight)
+        {
+            var tempA=this.listMovementObjects[Player.moveRightIndex].getImage();
+            this.currentImage=tempA;
+            ctx.drawImage(img, tempA.x, tempA.y,tempA.dw,tempA.dh, this.x-this.rw,this.y-this.rh,17,43);
+        }
+        if(this.moveLeft)
+        {
+            var tempA=this.listMovementObjects[Player.moveLeftIndex].getImage();
             this.currentImage=tempA;
             ctx.drawImage(img, tempA.x, tempA.y,tempA.dw,tempA.dh, this.x-this.rw,this.y-this.rh,17,43);
         }
@@ -102,10 +123,7 @@
     var upMovement=[];
     var lefthMovement=[];
     var rightMovement=[];
-//    for(var i=0;i<9;i++)
-//    {
-//        downMovement[i]=new ImageCoordinate(65+i*(17+6),65,17,43);
-//    }
+
     downMovement[0]=new ImageCoordinate(65,65,17,43);
     downMovement[1]=new ImageCoordinate(88,65,17,43);
     downMovement[2]=new ImageCoordinate(110,65,17,43);
@@ -116,10 +134,18 @@
     downMovement[7]=new ImageCoordinate(216,65,17,43);
     downMovement[8]=new ImageCoordinate(237,65,17,43);
 
-    //downMovement[2]=new ImageCoordinate(110,65,17,43);
-    //downMovement[3]=new ImageCoordinate(131,65,17,43);
-    //var listMovementObjects=new Array();
+    upMovement[0]= new ImageCoordinate(66,113,17,43);
+    upMovement[1]= new ImageCoordinate(88,113,17,43);
+    upMovement[2]= new ImageCoordinate(110,113,17,43);
+    upMovement[3]= new ImageCoordinate(130,113,17,43);
+    upMovement[4]= new ImageCoordinate(151,113,17,43);
+    upMovement[5]= new ImageCoordinate(173,113,17,43);
+    upMovement[6]= new ImageCoordinate(192,113,17,43);
+    upMovement[7]= new ImageCoordinate(211,113,17,43);
+    upMovement[8]= new ImageCoordinate(231,113,17,43);
+
     player.listMovementObjects.push(new movementImage(downMovement));
+    player.listMovementObjects.push(new movementImage(upMovement));
 
     var gameImages={};
     gameImages.Player= new Image();
@@ -143,7 +169,7 @@
 
         player.update(ctx,gameImages.Player);
         //ctx.drawImage(gameImages.Player, 65, 65,17,43, player.x-player.rw,player.y-player.rh,17,43);
-    },100/6);
+    },1000/15);
 
     //var image = document.getElementById('source');
 
@@ -158,6 +184,7 @@
             case 38:{
                 console.log('Arriba!!');
                 player.y--;
+                player.moveUp=true
                 break;
             }
             case 40:{
@@ -169,11 +196,13 @@
             case 39:{
                 console.log('Derecha !!');
                 player.x++;
+                player.moveRight=true;
                 break;
             }
             case 37:{
                 console.log('Izquierda !!');
                 player.x--;
+                player.moveLeft=true;
                 break;
             }
         }
