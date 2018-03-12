@@ -68,6 +68,8 @@
         this.moveRight=false;
         this.listMovementObjects=new Array();
         this.currentImage=new ImageCoordinate(65+(17+6),65,17,43);
+        //110,319,17,43
+        //this.currentImage=new ImageCoordinate(320,111,19,43);
     }
     Player.moveDownIndex=0;
     Player.moveUpIndex=1;
@@ -143,9 +145,44 @@
     upMovement[6]= new ImageCoordinate(192,113,17,43);
     upMovement[7]= new ImageCoordinate(211,113,17,43);
     upMovement[8]= new ImageCoordinate(231,113,17,43);
+    //x,y, w,h
+    //dar vuelta a la izquierda
+//    lefthMovement[0]= new ImageCoordinate(322,112,17,43);
+//    lefthMovement[1]= new ImageCoordinate(344,112,17,43);
+//    lefthMovement[2]= new ImageCoordinate(367,112,17,43);
+//    lefthMovement[3]= new ImageCoordinate(387,112,17,43);
+//    lefthMovement[4]= new ImageCoordinate(407,112,19,43);
+//    lefthMovement[5]= new ImageCoordinate(428,112,19,43);
+//    lefthMovement[6]= new ImageCoordinate(451,112,19,43);
+//    lefthMovement[7]= new ImageCoordinate(471,112,19,43);
+//    lefthMovement[8]= new ImageCoordinate(490,112,19,43);
+
+    lefthMovement[0]= new ImageCoordinate(66,161,17,43);
+    lefthMovement[1]= new ImageCoordinate(88,161,17,43);
+    lefthMovement[2]= new ImageCoordinate(112,161,17,43);
+    lefthMovement[3]= new ImageCoordinate(133,161,17,43);
+    lefthMovement[4]= new ImageCoordinate(153,161,17,43);
+    lefthMovement[5]= new ImageCoordinate(173,161,19,43);
+    lefthMovement[6]= new ImageCoordinate(195,161,19,43);
+    lefthMovement[7]= new ImageCoordinate(218,161,19,43);
+    lefthMovement[8]= new ImageCoordinate(238,161,19,43);
+
+    //rightMovement[0]= new ImageCoordinate(214,209,17,43);
+    rightMovement[0]= new ImageCoordinate(64,209,17,43);
+    rightMovement[1]= new ImageCoordinate(84,209,17,43);
+    rightMovement[2]= new ImageCoordinate(107,209,17,43);
+    rightMovement[3]= new ImageCoordinate(130,209,17,43);
+    rightMovement[4]= new ImageCoordinate(149,209,17,43);
+    rightMovement[5]= new ImageCoordinate(169,209,17,43);
+    rightMovement[6]= new ImageCoordinate(190,209,17,43);
+    rightMovement[7]= new ImageCoordinate(214,209,17,43);
+    rightMovement[8]= new ImageCoordinate(238,209,17,43);
+
 
     player.listMovementObjects.push(new movementImage(downMovement));
     player.listMovementObjects.push(new movementImage(upMovement));
+    player.listMovementObjects.push(new movementImage(lefthMovement));
+    player.listMovementObjects.push(new movementImage(rightMovement));
 
     var gameImages={};
     gameImages.Player= new Image();
