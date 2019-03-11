@@ -1,4 +1,8 @@
-ElectroEngine
+#ElectrioEngine
+
+**Game Engine with vanilla javascript, express js, electron js, and node js**
+**sprites are based on Harry Potter 3 (GBA game)**
+
 Thanks for download this project.
 In order to run:
 You should have node js installed
