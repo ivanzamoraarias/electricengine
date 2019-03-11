@@ -1,4 +1,4 @@
-#ElectrioEngine
+#Electric Game Engine
 
 **Game Engine with vanilla javascript, express js, electron js, and node js**
 **sprites are based on Harry Potter 3 (GBA game)**
